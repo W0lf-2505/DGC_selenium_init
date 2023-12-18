@@ -9,7 +9,7 @@ import copy
 
 
 # inherit TestCase Class and create a new test class
-class PythonOrgSearch(unittest.TestCase):
+class DGC_init(unittest.TestCase):
 
     # initialization of webdriver
     def setUp(self):
