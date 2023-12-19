@@ -34,7 +34,7 @@ class DGC_init(unittest.TestCase):
         driver = self.driver
         wait = WebDriverWait(driver, 5)
    
-        print("Going to Posts")
+        print("Testing search")
         Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
         Posts.click()
 
@@ -71,6 +71,27 @@ class DGC_init(unittest.TestCase):
             for single_content in table_content:
                 only_title = single_content.find_element(By.CSS_SELECTOR, '.font-14')
                 self.assertIn(keyword.lower(), str(only_title.text).lower())
+
+    def test_pagination_in_post(self):
+        driver = self.driver
+        wait = WebDriverWait(driver, 5)
+   
+        print("Testing Pagination")
+        Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
+        Posts.click()
+
+        selects = driver.find_elements(By.TAG_NAME, 'select')
+        for select in selects:
+            options = select.find_elements(By.TAG_NAME, 'option')
+            for option in options:
+                option.click()
+                time.sleep(5)
+                count = int(option.text)
+                table = driver.find_element(By.TAG_NAME,'table')
+                table_body = table.find_element(By.TAG_NAME,'tbody')
+                table_row = table_body.find_elements(By.TAG_NAME,'tr')
+                trcount = len(table_row)
+                self.assertIn(str(count),str(trcount))
 
     def tearDown(self):
             self.driver.quit()
