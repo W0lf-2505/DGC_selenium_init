@@ -43,6 +43,12 @@ This function checks the correctness of post results in the posts table when pag
 4. Change pagination settings to 10, 20, and 30.
 5. Verify the number of results in the posts table for each pagination setting.
 
+## Future Implementations
+
+1. We can extend the script to give out all possible scenarios added to the testcase sheet at - https://docs.google.com/spreadsheets/d/1fv3eHIIIEs3DMxVaM3a4xN0tzayK6PSS3gQVVHPrS8Y/edit#gid=1766581807
+2. We can randomize the scenarios to get different results and check for small issues that are not always put through while manual testing.
+3. Once scaled for the website, the script can be run to check the testcases after every deployment without any new changes to be made.
+
 ## Usage
 
 1. Ensure that Python and the required dependencies are installed.
