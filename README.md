@@ -43,6 +43,24 @@ This function checks the correctness of post results in the posts table when pag
 4. Change pagination settings to 10, 20, and 30.
 5. Verify the number of results in the posts table for each pagination setting.
 
+### 3. `test_modified_created_sort_with_pagination`
+
+This test script is designed to verify the functionality of the modified date and created date sorting functions and validate pagination after the sort button is clicked. The script utilizes Selenium with Python to interact with a web application.
+
+#### Steps:
+
+1. Read credentials from the `creds` file.
+2. Open the web browser and navigate to the specified URL.
+3. Log in using the provided username and password.
+4. Navigate to the page where the modified date and created date sorting functions are available.
+5. Click on the modified date sorting button.
+6. Verify that the page is sorted by modified date in the expected order.
+7. Click on the created date sorting button.
+8. Verify that the page is sorted by created date in the expected order.
+9. Click on the sort button (either modified or created date).
+10. Verify that the pagination is updated correctly.
+11. Check that the number of results on each page is as expected.
+
 ## Future Implementations
 
 1. We can extend the script to give out all possible scenarios added to the testcase sheet at - https://docs.google.com/spreadsheets/d/1fv3eHIIIEs3DMxVaM3a4xN0tzayK6PSS3gQVVHPrS8Y/edit#gid=1766581807

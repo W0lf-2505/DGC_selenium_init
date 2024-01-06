@@ -93,6 +93,50 @@ class DGC_init(unittest.TestCase):
                 trcount = len(table_row)
                 self.assertIn(str(count),str(trcount))
 
+    def test_modified_created_sort_with_pagination(self):
+        driver = self.driver
+        wait = WebDriverWait(driver,5)
+
+        print("Testing Modified and Created Sort for pagination issues")
+        Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
+        Posts.click()
+        
+        buttons = driver.find_elements(By.CSS_SELECTOR, '.sort-icon')
+        Modified_Sort = buttons[2]
+        Created_Sort = buttons[3]
+
+        Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
+        Posts.click()
+
+        selects = driver.find_elements(By.TAG_NAME, 'select')
+        
+        Modified_Sort.click()
+        for select in selects:
+            options = select.find_elements(By.TAG_NAME, 'option')
+            for option in options:
+                option.click()
+                time.sleep(5)
+                count = int(option.text)
+                table = driver.find_element(By.TAG_NAME,'table')
+                table_body = table.find_element(By.TAG_NAME,'tbody')
+                table_row = table_body.find_elements(By.TAG_NAME,'tr')
+                trcount = len(table_row)
+                self.assertIn(str(count),str(trcount))
+        time.sleep(10)
+        Created_Sort.click()
+        for select in selects:
+            options = select.find_elements(By.TAG_NAME, 'option')
+            for option in options:
+                option.click()
+                time.sleep(5)
+                count = int(option.text)
+                table = driver.find_element(By.TAG_NAME,'table')
+                table_body = table.find_element(By.TAG_NAME,'tbody')
+                table_row = table_body.find_elements(By.TAG_NAME,'tr')
+                trcount = len(table_row)
+                self.assertIn(str(count),str(trcount))
+        
+
     def tearDown(self):
             self.driver.quit()
 
