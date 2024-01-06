@@ -61,6 +61,20 @@ This test script is designed to verify the functionality of the modified date an
 10. Verify that the pagination is updated correctly.
 11. Check that the number of results on each page is as expected.
 
+### 4. `test_nationaluser_postvisibility_check`
+
+This test script verifies whether a national user, when logged in, can see posts from all districts in the post results.
+
+#### Steps:
+
+1. Read credentials from the `creds` file.
+2. Open the web browser and navigate to the specified URL.
+3. Log in using the provided national user credentials.
+4. Navigate to the page where post results are displayed.
+5. Retrieve the list of districts from the UI.
+7. Ensure that the all districts are shown to national user.
+8. Log out of the application.
+
 ## Future Implementations
 
 1. We can extend the script to give out all possible scenarios added to the testcase sheet at - https://docs.google.com/spreadsheets/d/1fv3eHIIIEs3DMxVaM3a4xN0tzayK6PSS3gQVVHPrS8Y/edit#gid=1766581807

@@ -100,13 +100,10 @@ class DGC_init(unittest.TestCase):
         print("Testing Modified and Created Sort for pagination issues")
         Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
         Posts.click()
-        
+
         buttons = driver.find_elements(By.CSS_SELECTOR, '.sort-icon')
         Modified_Sort = buttons[2]
         Created_Sort = buttons[3]
-
-        Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
-        Posts.click()
 
         selects = driver.find_elements(By.TAG_NAME, 'select')
         
@@ -140,5 +137,63 @@ class DGC_init(unittest.TestCase):
     def tearDown(self):
             self.driver.quit()
 
+class DGC_national(unittest.TestCase):
+    # initialization of webdriver
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        with open('./creds', 'r') as f:
+            lines = f.readlines()
+        self.driver.get(lines[0])
+        self.driver.implicitly_wait(1000)
+        email = self.driver.find_element(by=By.NAME, value="email")
+        email.send_keys('national@example.com')
+
+        password = self.driver.find_element(by=By.NAME, value="password")
+        password.send_keys(lines[2])
+
+        kutchbhi = self.driver.find_element(by=By.CSS_SELECTOR, value = ".submit-btn button")
+        kutchbhi.click()
+        self.driver.implicitly_wait(1000)
+
+    # Test case method. It should always start with test_
+    def test_nationaluser_postvisiblity_check(self):
+        driver = self.driver
+        wait = WebDriverWait(driver,5)
+
+        print("Testing NationalUser access to all district posts")
+        Posts = driver.find_element(By.CSS_SELECTOR, '.menu-item [title="Posts"]')
+        Posts.click()
+
+        selects = driver.find_elements(By.TAG_NAME, 'select')
+        for select in selects:
+            options = select.find_elements(By.TAG_NAME, 'option')
+            options[-1].click()
+        time.sleep(5)
+        Owner_array = []
+        initial_table = copy.copy(wait.until(EC.presence_of_all_elements_located((By.TAG_NAME, 'table'))))
+        table = initial_table[0]
+        table_body = table.find_element(By.TAG_NAME,'tbody')
+        table_rows = table_body.find_elements(By.TAG_NAME,'tr')
+        for table_row in table_rows:
+            Owner_array.append(table_row.find_elements(By.TAG_NAME,'td')[4])
+
+        districts = []
+        for owner in Owner_array:
+            district = owner.find_element(By.CSS_SELECTOR,'.pipe')
+            districts.append(district.text)
+
+        districts = list(set(districts))
+        if len(districts) == 1:
+            count = len(districts)
+            # Need to add page change to check if the page has only those posts
+        count = len(districts)
+        self.assertGreater(count,1)
+
+        
+    
+    def tearDown(self):
+            self.driver.quit()
+
+    
 if __name__ == '__main__':
     unittest.main()
